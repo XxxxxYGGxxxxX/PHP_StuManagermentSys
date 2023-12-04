@@ -1,0 +1,2 @@
+# PHP_StuManagermentSys
+一个基于PHP与MySQL开发的学生管理系统
