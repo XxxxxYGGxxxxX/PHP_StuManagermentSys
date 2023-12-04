@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>学生信息列表</title>
+<link rel="stylesheet" href="./common.css" />
+</head>
+<body>
+
+<div class="box list">
+	<div class="title">学生信息列表</div>
+	<div    class="search"><form>快速查询（姓名）：<input type="text" name="search"/> <input type="submit" value="提交"/></form>
+		<a href="index.php">返回列表</a>
+	</div>
+	<table>
+		<tr>
+			<?php 
+			//反转排序值
+			$order_sort = ($order_sort=='desc'?'asc':'desc');
+			?>
+			<th width="5%"><a href="?order=id&sort=<?php echo $order_sort; ?>">ID</a></th>
+			<th><a href="?order=name&sort=<?php echo $order_sort; ?>">姓名</a></th>
+			<th><a href="?order=class&sort=<?php echo $order_sort; ?>">所属班级</a></th>
+			<th><a href="?order=sex&sort=<?php echo $order_sort; ?>">性别</a></th>
+			<th><a href="?order=grade&sort=<?php echo $order_sort; ?>">总成绩</a></th>
+			<th><a href="?order=date_of_birth&sort=<?php echo $order_sort; ?>">出生日期</a></th>
+			<th><a href="?order=date_of_enter&sort=<?php echo $order_sort; ?>">入学时间</a></th>
+			<th width="25%">相关操作</th>
+		</tr>
+		<?php if(empty($emp_info)): ?>
+			<tr><td colspan="6">查询的结果不存在！</td></tr>
+		<?php else: foreach($emp_info as $v): ?>
+		<tr>
+			 <td><?php echo $v['p_LP_id']; ?></td>
+			 <td><?php echo $v['p_LP_name']; ?></td>
+			 <td><?php echo $v['p_LP_class']; ?></td>
+			 <td><?php echo $v['p_LP_sex']; ?></td>
+			 <td><?php echo $v['p_LP_grade']; ?></td>
+			 <td><?php echo date('Y-m-d',strtotime($v['p_LP_date_of_birth'])); ?></td>
+			 <td><?php echo date('Y-m-d',strtotime($v['p_LP_date_of_enter'])); ?></td>
+			 <td>
+				<a class="icon icon-edit" href="emp_edit.php?id=<?php echo $v['p_LP_id']; ?>">编辑</a>
+				<a class="icon icon-del" href="emp_del.php?id=<?php echo $v['p_LP_id']; ?>">删除</a>
+			</td>
+		</tr>
+		<?php endforeach; endif; ?>
+	</table>
+	<div class="page">
+		<?php echo $page_html ?>
+	</div>
+	<div class="action">
+		<a href="emp_add.php">添加学生</a><a href="dept.php">班级管理</a>
+		<a href="register.php">注册用户</a>
+		<a href="login.php">切换用户</a>
+	</div>
+</div>
+</body>
+</html>
